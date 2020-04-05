@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "678612468464",
+    "firebase_url": "https://fir-snsapplication.firebaseio.com",
+    "project_id": "fir-snsapplication",
+    "storage_bucket": "fir-snsapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678612468464:android:956a48268b4f08b797b835",
+        "android_client_info": {
+          "package_name": "com.zion.firebasesnsapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678612468464-tn3g7llc2kc26ah56jg7t9142ct6c91b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zion.firebasesnsapplication",
+            "certificate_hash": "0eaf0683b2c3b6b2b63f5bc7e1e26e95fced8486"
+          }
+        },
+        {
+          "client_id": "678612468464-6srkis5socko4m4qirn0h5tpuiitigb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuPoQwtoGpPws00GRjnANYfSZIoVRrh4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678612468464-6srkis5socko4m4qirn0h5tpuiitigb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
