@@ -9,13 +9,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterMemberInfoActivity extends AppCompatActivity {
     private final static String TAG = "RegisterMemberInfo";
@@ -42,13 +40,42 @@ public class RegisterMemberInfoActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void profileUpdate() {
         String name = ((EditText) findViewById(R.id.edit_text_name)).getText().toString();
         String phone = ((EditText) findViewById(R.id.edit_text_phone)).getText().toString();
         String birthday = ((EditText) findViewById(R.id.edit_text_birthday)).getText().toString();
         String address = ((EditText) findViewById(R.id.edit_text_address)).getText().toString();
-        if(name.length() > 0 && phone.length() > 0 && birthday.length() > 0 && address.length() > 0) {
+        if(name.length() > 0 && phone.length() > 9 && birthday.length() > 4 && address.length() > 0) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            MemberInfo memberInfo = new MemberInfo(name, phone, birthday, address);
+            if(user != null) {
+                db.collection("users").document(user.getUid())
+                        .set(memberInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                                showToast("회원정보가 등록되었습니다.");
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                                showToast("등록에 실패하였습니다.");
+                            }
+                        });
+            }
 
+            /*
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(name)
                     .build();
@@ -66,6 +93,7 @@ public class RegisterMemberInfoActivity extends AppCompatActivity {
                             }
                         });
             }
+            */
         } else {
             showToast("회원정보를 입력해주세요.");
         }
